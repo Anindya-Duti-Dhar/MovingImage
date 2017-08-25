@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        // create bitmap dynamically
         //createBitMap();
 
         // create blur effect over the video view
