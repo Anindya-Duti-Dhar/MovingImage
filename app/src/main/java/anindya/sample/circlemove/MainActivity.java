@@ -31,9 +31,12 @@ public class MainActivity extends AppCompatActivity {
 
     ImageView imageView;
     RelativeLayout mContainer;
+    int dimensionToPixel, radiusCircle;
     private float xCoOrdinate, yCoOrdinate;
     int mParentHeight, mParentWidth;
-
+    float touchX = 0;
+    float touchY = 0;
+    float circleCenterX, circleCenterY;
     // Initializes the RangeBar in the application
     private RangeBar rangebar;
 
@@ -53,8 +56,13 @@ public class MainActivity extends AppCompatActivity {
         Log.d("screen_xmpp: ", "Width: " + width + " Height: " + height);
 
         imageView = (ImageView) findViewById(R.id.imageView);
-        mContainer = (RelativeLayout) findViewById(R.id.container);
+        dimensionToPixel = dp2px(180);
+        radiusCircle = dimensionToPixel / 2;
+        Log.d("circle_diameter_xmpp:", String.valueOf(dimensionToPixel));
+        RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(dimensionToPixel, dimensionToPixel);
+        imageView.setLayoutParams(parms);
 
+        mContainer = (RelativeLayout) findViewById(R.id.container);
         mContainer.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @SuppressLint("NewApi")
             @SuppressWarnings("deprecation")
@@ -85,40 +93,46 @@ public class MainActivity extends AppCompatActivity {
                                               String leftPinValue, String rightPinValue) {
                 int rangeValue = rightPinIndex;
                 if (rangeValue == 0) {
-                    Log.d("right_range_xmpp: ", String.valueOf(rangeValue));
-                    int dimensionInPixel = 160;
-                    int dimensionInDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dimensionInPixel, getResources().getDisplayMetrics());
-                    RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(dimensionInDp, dimensionInDp);
+                    Log.d("circle_range_xmpp: ", String.valueOf(rangeValue));
+                    dimensionToPixel = dp2px(160);
+                    radiusCircle = dimensionToPixel / 2;
+                    Log.d("circle_diameter_xmpp:", String.valueOf(dimensionToPixel));
+                    RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(dimensionToPixel, dimensionToPixel);
                     imageView.setLayoutParams(parms);
                 } else if (rangeValue == 1) {
-                    Log.d("right_range_xmpp: ", String.valueOf(rangeValue));
-                    int dimensionInPixel = 180;
-                    int dimensionInDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dimensionInPixel, getResources().getDisplayMetrics());
-                    RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(dimensionInDp, dimensionInDp);
+                    Log.d("circle_range_xmpp: ", String.valueOf(rangeValue));
+                    dimensionToPixel = dp2px(180);
+                    radiusCircle = dimensionToPixel / 2;
+                    Log.d("circle_diameter_xmpp:", String.valueOf(dimensionToPixel));
+                    RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(dimensionToPixel, dimensionToPixel);
                     imageView.setLayoutParams(parms);
                 } else if (rangeValue == 2) {
-                    Log.d("right_range_xmpp: ", String.valueOf(rangeValue));
-                    int dimensionInPixel = 205;
-                    int dimensionInDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dimensionInPixel, getResources().getDisplayMetrics());
-                    RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(dimensionInDp, dimensionInDp);
+                    Log.d("circle_range_xmpp: ", String.valueOf(rangeValue));
+                    dimensionToPixel = dp2px(200);
+                    radiusCircle = dimensionToPixel / 2;
+                    Log.d("circle_diameter_xmpp:", String.valueOf(dimensionToPixel));
+                    RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(dimensionToPixel, dimensionToPixel);
                     imageView.setLayoutParams(parms);
                 } else if (rangeValue == 3) {
-                    Log.d("right_range_xmpp: ", String.valueOf(rangeValue));
-                    int dimensionInPixel = 230;
-                    int dimensionInDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dimensionInPixel, getResources().getDisplayMetrics());
-                    RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(dimensionInDp, dimensionInDp);
+                    Log.d("circle_range_xmpp: ", String.valueOf(rangeValue));
+                    dimensionToPixel = dp2px(220);
+                    radiusCircle = dimensionToPixel / 2;
+                    Log.d("circle_diameter_xmpp:", String.valueOf(dimensionToPixel));
+                    RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(dimensionToPixel, dimensionToPixel);
                     imageView.setLayoutParams(parms);
                 } else if (rangeValue == 4) {
-                    Log.d("right_range_xmpp: ", String.valueOf(rangeValue));
-                    int dimensionInPixel = 260;
-                    int dimensionInDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dimensionInPixel, getResources().getDisplayMetrics());
-                    RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(dimensionInDp, dimensionInDp);
+                    Log.d("circle_range_xmpp: ", String.valueOf(rangeValue));
+                    dimensionToPixel = dp2px(240);
+                    radiusCircle = dimensionToPixel / 2;
+                    Log.d("circle_diameter_xmpp:", String.valueOf(dimensionToPixel));
+                    RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(dimensionToPixel, dimensionToPixel);
                     imageView.setLayoutParams(parms);
                 } else if (rangeValue == 5) {
-                    Log.d("right_range_xmpp: ", String.valueOf(rangeValue));
-                    int dimensionInPixel = 280;
-                    int dimensionInDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dimensionInPixel, getResources().getDisplayMetrics());
-                    RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(dimensionInDp, dimensionInDp);
+                    Log.d("circle_range_xmpp: ", String.valueOf(rangeValue));
+                    dimensionToPixel = dp2px(260);
+                    radiusCircle = dimensionToPixel / 2;
+                    Log.d("circle_diameter_xmpp:", String.valueOf(dimensionToPixel));
+                    RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(dimensionToPixel, dimensionToPixel);
                     imageView.setLayoutParams(parms);
                 }
 
@@ -143,15 +157,24 @@ public class MainActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_DOWN:
                         xCoOrdinate = view.getX() - event.getRawX();
                         yCoOrdinate = view.getY() - event.getRawY();
+                        //Log.d("circle_current_xmpp:: ", " circle center X: " + circleCenterX + " circle center Y: " + circleCenterY + " touch center X: " +touchX+ " touch center Y: " +touchY);
                         break;
+                    //circle center X: 1062.3105 circle center Y: 1088.75 touch center X: 330.3263 touch center Y: 555.625
                     case MotionEvent.ACTION_MOVE:
-                        view.animate().x(event.getRawX() + xCoOrdinate).y(event.getRawY() + yCoOrdinate).setDuration(0).start();
-                        //Log.d("XCoOrdinate_xmpp: ", String.valueOf(event.getX()) + " And " + " YCoOrdinate_xmpp: " + String.valueOf(event.getY()));
-                        int dimensionInPixel = 90;
-                        int dimensionInDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dimensionInPixel, getResources().getDisplayMetrics());
-                        float xc = view.getX() + dimensionInDp;
-                        float yc = view.getY() + dimensionInDp;
-                        Log.d("circle_xmpp: ", " circle center X: " + xc + " circle center Y: " + yc + " touch center X: " + event.getX() + " touch center Y: " + event.getY());
+                        if ((circleCenterX + radiusCircle) > mParentWidth) {
+                            touchX = event.getX();
+                            touchY = event.getY();
+                            Log.d("circle_current_xmpp:: ", " circle center X: " + circleCenterX + " circle center Y: " + circleCenterY + " touch center X: " +touchX+ " touch center Y: " +touchY);
+                        } else {
+                            view.animate().x(event.getRawX() + xCoOrdinate).y(event.getRawY() + yCoOrdinate).setDuration(0).start();
+                            circleCenterX = view.getX() + radiusCircle;
+                            circleCenterY = view.getY() + radiusCircle;
+                            touchX = event.getX();
+                            touchY = event.getY();
+                            Log.d("circle_current_xmpp:: ", " circle center X: " + circleCenterX + " circle center Y: " + circleCenterY + " touch center X: " +touchX+ " touch center Y: " +touchY);
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
                         break;
                     default:
                         return false;
@@ -159,6 +182,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    // convert dp to pixel
+    private int dp2px(int dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
     }
 
     // create bitmap programmatically
