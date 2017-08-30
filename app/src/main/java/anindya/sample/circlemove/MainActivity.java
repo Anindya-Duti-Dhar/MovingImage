@@ -36,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
     int mParentHeight, mParentWidth;
     float touchX = 0;
     float touchY = 0;
-    float circleCenterX, circleCenterY;
+    float lastTouchX = 0;
+    float lastTouchY = 0;
+    float circleCenterX, circleCenterY, viewX, viewY;
     // Initializes the RangeBar in the application
     private RangeBar rangebar;
 
@@ -157,21 +159,82 @@ public class MainActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_DOWN:
                         xCoOrdinate = view.getX() - event.getRawX();
                         yCoOrdinate = view.getY() - event.getRawY();
-                        //Log.d("circle_current_xmpp:: ", " circle center X: " + circleCenterX + " circle center Y: " + circleCenterY + " touch center X: " +touchX+ " touch center Y: " +touchY);
                         break;
-                    //circle center X: 1062.3105 circle center Y: 1088.75 touch center X: 330.3263 touch center Y: 555.625
                     case MotionEvent.ACTION_MOVE:
                         if ((circleCenterX + radiusCircle) > mParentWidth) {
                             touchX = event.getX();
+                            if (touchX > lastTouchX) {
+                                //don't move
+                            } else {
+                                view.animate().x(event.getRawX() + xCoOrdinate).y(event.getRawY() + yCoOrdinate).setDuration(0).start();
+                                circleCenterX = view.getX() + radiusCircle;
+                                circleCenterY = view.getY() + radiusCircle;
+                                touchX = event.getX();
+                                lastTouchX = touchX;
+                                touchY = event.getY();
+                                lastTouchY = touchY;
+                                viewX = view.getX();
+                                Log.d("circle_current_xmpp:: ", " circle center X: " + circleCenterX + " circle center Y: " + circleCenterY + " touch center X: " + touchX + " touch center Y: " + touchY);
+                            }
+                        }
+                        if (circleCenterX < radiusCircle) {
+                            touchX = event.getX();
+                            if (touchX < lastTouchX) {
+                                //don't move
+                            } else {
+                                view.animate().x(event.getRawX() + xCoOrdinate).y(event.getRawY() + yCoOrdinate).setDuration(0).start();
+                                circleCenterX = view.getX() + radiusCircle;
+                                circleCenterY = view.getY() + radiusCircle;
+                                touchX = event.getX();
+                                lastTouchX = touchX;
+                                touchY = event.getY();
+                                lastTouchY = touchY;
+                                viewX = view.getX();
+                                Log.d("circle_current_xmpp:: ", " circle center X: " + circleCenterX + " circle center Y: " + circleCenterY + " touch center X: " + touchX + " touch center Y: " + touchY);
+                            }
+                        }
+                        else if ((circleCenterY + radiusCircle) > mParentHeight) {
                             touchY = event.getY();
-                            Log.d("circle_current_xmpp:: ", " circle center X: " + circleCenterX + " circle center Y: " + circleCenterY + " touch center X: " +touchX+ " touch center Y: " +touchY);
-                        } else {
+                            if (touchY > lastTouchY) {
+                                //don't move
+                            } else {
+                                view.animate().x(event.getRawX() + xCoOrdinate).y(event.getRawY() + yCoOrdinate).setDuration(0).start();
+                                circleCenterX = view.getX() + radiusCircle;
+                                circleCenterY = view.getY() + radiusCircle;
+                                touchX = event.getX();
+                                lastTouchX = touchX;
+                                touchY = event.getY();
+                                lastTouchY = touchY;
+                                viewX = view.getX();
+                                Log.d("circle_current_xmpp:: ", " circle center X: " + circleCenterX + " circle center Y: " + circleCenterY + " touch center X: " + touchX + " touch center Y: " + touchY);
+                            }
+                        }
+                        else if (circleCenterY < radiusCircle) {
+                            touchY = event.getY();
+                            if (touchY < lastTouchY) {
+                                //don't move
+                            } else {
+                                view.animate().x(event.getRawX() + xCoOrdinate).y(event.getRawY() + yCoOrdinate).setDuration(0).start();
+                                circleCenterX = view.getX() + radiusCircle;
+                                circleCenterY = view.getY() + radiusCircle;
+                                touchX = event.getX();
+                                lastTouchX = touchX;
+                                touchY = event.getY();
+                                lastTouchY = touchY;
+                                viewX = view.getX();
+                                Log.d("circle_current_xmpp:: ", " circle center X: " + circleCenterX + " circle center Y: " + circleCenterY + " touch center X: " + touchX + " touch center Y: " + touchY);
+                            }
+                        }
+                        else {
                             view.animate().x(event.getRawX() + xCoOrdinate).y(event.getRawY() + yCoOrdinate).setDuration(0).start();
                             circleCenterX = view.getX() + radiusCircle;
                             circleCenterY = view.getY() + radiusCircle;
                             touchX = event.getX();
+                            lastTouchX = touchX;
                             touchY = event.getY();
-                            Log.d("circle_current_xmpp:: ", " circle center X: " + circleCenterX + " circle center Y: " + circleCenterY + " touch center X: " +touchX+ " touch center Y: " +touchY);
+                            lastTouchY = touchY;
+                            viewX = view.getX();
+                            Log.d("circle_current_xmpp:: ", " circle center X: " + circleCenterX + " circle center Y: " + circleCenterY + " touch center X: " + touchX + " touch center Y: " + touchY);
                         }
                         break;
                     case MotionEvent.ACTION_UP:
@@ -204,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
         Bitmap workingBitmap = Bitmap.createBitmap(bitmap);
         Bitmap mutableBitmap = workingBitmap.copy(Bitmap.Config.ARGB_8888, true);
 
-        // Construct a canvas with the specified bitmap to draw into
+        // Construct a .canvas with the specified bitmap to draw into
         canvas = new Canvas(mutableBitmap);
 
         // Create a new paint with default settings
